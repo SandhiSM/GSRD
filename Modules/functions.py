@@ -4,6 +4,7 @@ import datetime as dt
 import os
 import shutil
 import configparser
+import sys
 
 
 ENC = "UTF-8"
@@ -15,8 +16,9 @@ def config_load() -> str:
     return loader["User"]["language"], loader["User"]["password"], loader["User"]["first"]
 
 
-def error_log(error: str) -> None:
-    time: dt.datetime = dt.datetime.now(dt.timedelta(hours=9.0))
+def error_log() -> None:
+    error = str(sys.exc_info())
+    time = dt.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     with open(fr".\data\crashlogfiles\{time}.txt", 'w', encoding=ENC, newline='') as log_file:
         log_file.write(error)
 
@@ -26,13 +28,18 @@ def csv_load(file_name: str) -> list:
         return [list(value) for value in csv.reader(csv_file)]
 
 
+def csv_input(file_name: str) -> list:
+    with open(fr".\data\inputfiles\{file_name}.csv", encoding=ENC) as csv_file:
+        return [list(value) for value in csv.reader(csv_file)]
+
+
 def csv_write(file_name: str, data: list) -> None:
     with open(fr".\data\savefiles\{file_name}.csv", 'w', encoding=ENC, newline='') as csv_file:
         csv.writer(csv_file).writerows(data)
 
 
-def help_file_load(mode: str) -> str:
-    with open(fr".\data\helpfiles\{mode}.txt", encoding=ENC) as help_file:
+def help_file_load(mode: str, language: str) -> str:
+    with open(fr".\data\helpfiles\{language}\{mode}.txt", encoding=ENC) as help_file:
         return help_file.read()
 
 
