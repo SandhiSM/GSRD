@@ -1,0 +1,5 @@
+DATA INPUT MODE:
+Register data in batches using csv files.
+Select the csv file using the "Browse" button.
+However, there are rules about the form of data.
+Sample data types can be found in ".\data\samplefiles\inputfilessample.csv".

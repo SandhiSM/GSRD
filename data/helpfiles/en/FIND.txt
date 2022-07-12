@@ -1,0 +1,5 @@
+FIND MODE:
+Select whether you are looking for a word or a meaning by clicking the radio button at the top, 
+then enter the meaning if you selected word, 
+or enter the word if you selected meaning, 
+and click the "Submit" button.

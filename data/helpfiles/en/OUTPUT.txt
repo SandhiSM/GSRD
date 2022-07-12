@@ -1,0 +1,5 @@
+OUTPUT MODE:
+Securely copy registered data elsewhere.
+Please do not copy data in any other way than this.
+I will not be held responsible for any loss of data if you do anything other than this.
+Click on the "Browse" button and select the folder to which you want to move the data.

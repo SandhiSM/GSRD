@@ -1,0 +1,8 @@
+REGISTER MODE:
+Register a word.
+One meaning can be registered for each word.
+In fact, I was going to be able to register as many as I wanted.
+However, the process in FIND mode was troublesome, so it became one.
+I plan to change the system to allow multiple registrations in the future.
+If you wish to register more than one meaning, please wait for an update to be implemented.
+To use the system, enter the word you want to register in the top field, enter its meaning in the next field, and press the "Submit" button.

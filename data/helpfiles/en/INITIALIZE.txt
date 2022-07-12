@@ -1,0 +1,5 @@
+INITIALIZE MODE:
+Initialize this dictionary.
+If this mode is used, all data will be deleted.
+Deleted data cannot be restored.
+It is recommended that it not be used unless it is very important.

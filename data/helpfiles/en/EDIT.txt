@@ -1,0 +1,4 @@
+EDIT MODE:
+Select whether you want to edit the word or the meaning by clicking on the radio button at the top, 
+enter the word or the meaning you want to edit below it, 
+and press the "Submit" button.

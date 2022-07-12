@@ -1,0 +1,3 @@
+DELETE DATA MODE:
+Delete selected data.
+Be aware that once you delete the file, it cannot be restored again.

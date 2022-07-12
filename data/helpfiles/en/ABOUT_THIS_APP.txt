@@ -1,0 +1,16 @@
+ABOUT THIS APP:
+
+~ TO BEGIN WITH ~
+This application is a self-registering dictionary created by me, "S.&'hi.S.M.".
+I am Japanese and my English is poor.
+Thus basically, the English in this application is translated by "DeepL".
+So I apologize that the English sentence may seem strange to native speakers.
+If you find such expressions, I would appreciate it if you could point them out to me.
+Contact -> dev.andmailonly.gmail.com (Spam is strictly prohibited.)
+If you have any suggestions for improvement, please do so on GITHUB.
+
+~ BASIC USAGE ~
+The basic usage is indicated by the tooltip, but if you are unsure of it, please refer to the help for that mode.
+In the unlikely event that even that help is not clear, please include that information in the email above and I will get back to you.
+
+Well then, I hope this app is useful to you, and I wish you the best of luck. :)

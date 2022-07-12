@@ -1,0 +1,5 @@
+SETTING MODE:
+Change settings.
+Currently, only "Language" and "Password" can be set, but this number may increase in the future. 
+Please feel free to contact me if you have any suggestions about settings. 
+(See "ABOUT_THIS_APP" for contact information.)

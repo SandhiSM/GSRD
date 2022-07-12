@@ -1,0 +1,3 @@
+DELETE MODE:
+Enter the word you want to delete in the top entry field and press the "Submit" button.
+Note that once deleted, it cannot be restored again.
