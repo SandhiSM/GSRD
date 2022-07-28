@@ -431,3 +431,5 @@ if __name__ == "__main__":
         gui_self_registering_dictionary()
     except Exception:
         Processor.error()
+
+# 今後の目標 GUIの見た目をスタイリッシュにする、安定性の向上、等
