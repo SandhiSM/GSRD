@@ -77,4 +77,4 @@ def config_setting(first: str, language: str, password: str) -> str:
     config["User"]["first"] = first
     with open(r'.\data\config\config.ini', 'w') as config_file:
         config.write(config_file)
-    return "Config file has been successfully edited."
+    return "Settings are applied at the next startup."

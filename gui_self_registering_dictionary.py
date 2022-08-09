@@ -7,13 +7,14 @@ from Modules import Processor
 FONT: str = "sans-serif"
 MENU_DEFINITION: list = [["&Mode", ["&Create", "&Register", "&Input", "&Find", "&Edit",
                                     "&Delete", "&Help", "Delete Data", "&Output", "&Setting", "&Terminate", "Initialize"]]]
-SIZE: tuple = (1000, 800)
+SIZE: tuple = (500, 250)
 
 # レイアウトの定義
 LAYOUT_ACTIVATE: list = [
-    [PySimpleGUI.T("Welcome to GSRD!", font=FONT)],
-    [PySimpleGUI.B("START", font=FONT, tooltip="Start",
-                   k="-SUBMITSTART-", expand_x=True, expand_y=True)]
+    [PySimpleGUI.In("Starting GSRD...", font=FONT, k="-PROGRESS-",
+                    readonly=True, expand_x=True, expand_y=True)],
+    [PySimpleGUI.ProgressBar(100, 'h', bar_color="green",
+                             k="-PROGRESSBAR-", expand_x=True, expand_y=True)]
 ]
 LAYOUT_FIRST: list = [
     [PySimpleGUI.T(
@@ -170,37 +171,37 @@ LAYOUT_INITIALIZE: list = [
 
 # ウィンドウの定義
 WINDOW_ACTIVATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, no_titlebar=True, finalize=True, keep_on_top=True, disable_minimize=True, size=SIZE)
+    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, finalize=True, keep_on_top=True, disable_minimize=True, size=(800, 400))
 WINDOW_FIRST: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: FIRST", layout=LAYOUT_FIRST, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: FIRST", layout=LAYOUT_FIRST, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_INTRODUCTION: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INTRODUCTION", layout=LAYOUT_INTRODUCTION, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: INTRODUCTION", layout=LAYOUT_INTRODUCTION, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_PASSWORD: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: PASSWORD", layout=LAYOUT_PASSWORD, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: PASSWORD", layout=LAYOUT_PASSWORD, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_CREATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: CREATE", layout=LAYOUT_CREATE, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: CREATE", layout=LAYOUT_CREATE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_REGISTER: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: REGISTER", layout=LAYOUT_REGISTER, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: REGISTER", layout=LAYOUT_REGISTER, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_INPUT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INPUT", layout=LAYOUT_INPUT, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: INPUT", layout=LAYOUT_INPUT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_FIND: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: FIND", layout=LAYOUT_FIND, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: FIND", layout=LAYOUT_FIND, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_EDIT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: EDIT", layout=LAYOUT_EDIT, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: EDIT", layout=LAYOUT_EDIT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_DELETE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: DELETE", layout=LAYOUT_DELETE, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: DELETE", layout=LAYOUT_DELETE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_HELP: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: HELP", layout=LAYOUT_HELP, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: HELP", layout=LAYOUT_HELP, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_DELETE_DATA: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: DELETE DATA", layout=LAYOUT_DELETE_DATA, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: DELETE DATA", layout=LAYOUT_DELETE_DATA, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_OUTPUT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: OUTPUT", layout=LAYOUT_OUTPUT, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: OUTPUT", layout=LAYOUT_OUTPUT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_SETTING: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: SETTING", layout=LAYOUT_SETTING, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: SETTING", layout=LAYOUT_SETTING, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_TERMINATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: TERMINATE", layout=LAYOUT_TERMINATE, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: TERMINATE", layout=LAYOUT_TERMINATE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_INITIALIZE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INITIALIZE", layout=LAYOUT_INITIALIZE, font=FONT, no_titlebar=True, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
+    "GSRD: INITIALIZE", layout=LAYOUT_INITIALIZE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 
 
 # 画面遷移用の関数
@@ -226,23 +227,35 @@ def windows_change(remain_window: PySimpleGUI.Window) -> None:
 
 # 例外を処理するため関数にしておく
 def gui_self_registering_dictionary():
-    language, password, first = Processor.activate()
     running: bool = True
     initial: bool = True
-    while running:
-        window, event, values = PySimpleGUI.read_all_windows()
-        if initial:
-            windows_change(remain_window=WINDOW_ACTIVATE)
-            initial: bool = False
-            if first == "True":
-                Processor.config_set(language='en', password='None')
-                windows_change(remain_window=WINDOW_FIRST)
-            elif password != 'None':
-                windows_change(remain_window=WINDOW_PASSWORD)
-            else:
-                windows_change(remain_window=WINDOW_INTRODUCTION)
+    event, value = WINDOW_ACTIVATE.read()
+    WINDOW_ACTIVATE["-PROGRESS-"].update("Loading settings...")
+    language, password, first = Processor.activate()
+    WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
+    if first == "True":
+        WINDOW_ACTIVATE["-PROGRESS-"].update(
+            "Configuring settings...")
+        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(0)
+        first_window: PySimpleGUI.Window = WINDOW_FIRST
+        Processor.config_set(language='en', password='None')
+        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
+    else:
+        if password != "None":
+            first_window = WINDOW_PASSWORD
         else:
-            match event:
+            first_window = WINDOW_INTRODUCTION
+    while running:
+        WINDOW_ACTIVATE["-PROGRESS-"].update("Creating Windows...")
+        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(0)
+        window, events, values = PySimpleGUI.read_all_windows()
+        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
+        WINDOW_ACTIVATE["-PROGRESS-"].update("Done!")
+        if initial:
+            initial: bool = False
+            windows_change(remain_window=first_window)
+        else:
+            match events:
                 case "Create":
                     windows_change(remain_window=WINDOW_CREATE)
                 case "Register":
@@ -267,8 +280,6 @@ def gui_self_registering_dictionary():
                     windows_change(remain_window=WINDOW_TERMINATE)
                 case "Initialize":
                     windows_change(remain_window=WINDOW_INITIALIZE)
-                case "-SUBMITSTART-":
-                    pass
                 case "-SUBMITFIRST-":
                     if values["-FILENAMEFIRST-"] != '':
                         result = Processor.create_data(
@@ -432,4 +443,5 @@ if __name__ == "__main__":
     except Exception:
         Processor.error()
 
-# 今後の目標 GUIの見た目をスタイリッシュにする、安定性の向上、等
+# *今後の目標 日本語対応(日本人なのになぜ英語から作った)、GUIの見た目をスタイリッシュにする、安定性の向上、等
+# TODO 起動画面が正しく機能しているかのテスト
