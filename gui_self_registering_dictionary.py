@@ -7,14 +7,16 @@ from Modules import Processor
 FONT: str = "sans-serif"
 MENU_DEFINITION: list = [["&Mode", ["&Create", "&Register", "&Input", "&Find", "&Edit",
                                     "&Delete", "&Help", "Delete Data", "&Output", "&Setting", "&Terminate", "Initialize"]]]
-SIZE: tuple = (500, 250)
+SIZE: tuple = (800, 400)
 
 # レイアウトの定義
 LAYOUT_ACTIVATE: list = [
-    [PySimpleGUI.In("Starting GSRD...", font=FONT, k="-PROGRESS-",
+    [PySimpleGUI.In("Slide right to start...", font=FONT, k="-PROGRESS-",
                     readonly=True, expand_x=True, expand_y=True)],
     [PySimpleGUI.ProgressBar(100, 'h', bar_color="green",
-                             k="-PROGRESSBAR-", expand_x=True, expand_y=True)]
+                             k="-PROGRESSBAR-", expand_x=True, expand_y=True)],
+    [PySimpleGUI.Slider((0, 100), default_value=0, resolution=100, orientation='h',
+                        enable_events=True, k="-START-", disable_number_display=True, expand_x=True, expand_y=True)]
 ]
 LAYOUT_FIRST: list = [
     [PySimpleGUI.T(
@@ -171,7 +173,7 @@ LAYOUT_INITIALIZE: list = [
 
 # ウィンドウの定義
 WINDOW_ACTIVATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, finalize=True, keep_on_top=True, disable_minimize=True, size=(800, 400))
+    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, finalize=True, keep_on_top=True, size=(400, 100))
 WINDOW_FIRST: PySimpleGUI.Window = PySimpleGUI.Window(
     "GSRD: FIRST", layout=LAYOUT_FIRST, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=SIZE)
 WINDOW_INTRODUCTION: PySimpleGUI.Window = PySimpleGUI.Window(
@@ -226,34 +228,31 @@ def windows_change(remain_window: PySimpleGUI.Window) -> None:
 
 
 # 例外を処理するため関数にしておく
-def gui_self_registering_dictionary():
+def gui_self_registering_dictionary() -> None:
     running: bool = True
     initial: bool = True
-    event, value = WINDOW_ACTIVATE.read()
-    WINDOW_ACTIVATE["-PROGRESS-"].update("Loading settings...")
-    language, password, first = Processor.activate()
-    WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
-    if first == "True":
-        WINDOW_ACTIVATE["-PROGRESS-"].update(
-            "Configuring settings...")
-        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(0)
-        first_window: PySimpleGUI.Window = WINDOW_FIRST
-        Processor.config_set(language='en', password='None')
-        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
-    else:
-        if password != "None":
-            first_window = WINDOW_PASSWORD
-        else:
-            first_window = WINDOW_INTRODUCTION
     while running:
-        WINDOW_ACTIVATE["-PROGRESS-"].update("Creating Windows...")
-        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(0)
         window, events, values = PySimpleGUI.read_all_windows()
-        WINDOW_ACTIVATE["-PROGRESSBAR-"].update_bar(100)
-        WINDOW_ACTIVATE["-PROGRESS-"].update("Done!")
         if initial:
-            initial: bool = False
+            windows_change(remain_window=WINDOW_ACTIVATE)
+            window["-PROGRESS-"].update("Loading settings...")
+            language, password, first = Processor.activate()
+            window["-PROGRESSBAR-"].update_bar(100)
+            if first == "True":
+                window["-PROGRESS-"].update(
+                    "Configuring settings...")
+                window["-PROGRESSBAR-"].update_bar(0)
+                first_window: PySimpleGUI.Window = WINDOW_FIRST
+                Processor.config_set(language='en', password='None')
+                window["-PROGRESSBAR-"].update_bar(100)
+            else:
+                if password != "None":
+                    first_window = WINDOW_PASSWORD
+                else:
+                    first_window = WINDOW_INTRODUCTION
+            window["-PROGRESS-"].update("Done!")
             windows_change(remain_window=first_window)
+            initial: bool = False
         else:
             match events:
                 case "Create":
@@ -280,6 +279,8 @@ def gui_self_registering_dictionary():
                     windows_change(remain_window=WINDOW_TERMINATE)
                 case "Initialize":
                     windows_change(remain_window=WINDOW_INITIALIZE)
+                case "-START-":
+                    window["-START-"].update(disabled=True)
                 case "-SUBMITFIRST-":
                     if values["-FILENAMEFIRST-"] != '':
                         result = Processor.create_data(
@@ -443,5 +444,4 @@ if __name__ == "__main__":
     except Exception:
         Processor.error()
 
-# *今後の目標 日本語対応(日本人なのになぜ英語から作った)、GUIの見た目をスタイリッシュにする、安定性の向上、等
-# TODO 起動画面が正しく機能しているかのテスト
+# * 今後の目標 日本語対応(日本人なのになぜ英語から作った)、GUIの見た目をスタイリッシュにする、安定性の向上、要素のサイズの調整等
