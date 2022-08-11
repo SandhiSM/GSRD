@@ -2,15 +2,41 @@
 from Modules import Functions
 
 
+def show_details(last_time: str) -> str:
+    current_time: str = get_current_time()
+    available: int = 5 - Functions.calc_stoppage(last_time, current_time)
+    if available <= 0:
+        available: str = "Available now. Restart to use this application."
+    else:
+        pass
+    sentence: str = f"""
+Penalty for making five consecutive password mistakes.
+Time to stop -> {last_time}
+Current time -> {current_time}
+Available -> About {available} minutes later
+"""
+    return sentence
+
+
+def get_current_time() -> str:
+    return Functions.time()
+
+
+def judge_stoppage(last: str, current: str) -> bool:
+    time: int = Functions.calc_stoppage(last, current)
+    if time >= 5:
+        return True
+    else:
+        return False
+
+
 def error() -> None:  # 例外処理
     Functions.error_log()
 
 
 def activate() -> str:  # 起動の際の設定確認
-    language, password, first = Functions.config_load()
-    if language != "en" or language != "ja":
-        language = "en"
-    return language, password, first
+    language, password, first, stoppage = Functions.config_load()
+    return language, password, first, stoppage
 
 
 def load_data_list() -> list:  # 登録されているデータの一覧を表示
@@ -144,8 +170,8 @@ def data_output(file_path: str) -> str:  # データ出力
     return Functions.output_file(file_path)
 
 
-def config_set(language: str, password: str, first="False") -> str:
-    return Functions.config_setting(first, language, password)
+def config_set(language: str, password: str, first="False", stoppage="no") -> str:
+    return Functions.config_setting(first, language, password, stoppage)
 
 
 def load_data(file_name: str) -> list:  # データの読み込み, この関数集内でしか使用されない

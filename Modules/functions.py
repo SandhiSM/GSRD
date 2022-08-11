@@ -4,7 +4,7 @@ import datetime
 import os
 import shutil
 import configparser
-import sys
+import traceback
 
 
 ENC = "UTF-8"
@@ -13,12 +13,12 @@ ENC = "UTF-8"
 def config_load() -> str:
     loader: configparser.ConfigParser = configparser.ConfigParser()
     loader.read(r".\data\config\config.ini")
-    return loader["User"]["language"], loader["User"]["password"], loader["User"]["first"]
+    return loader["User"]["language"], loader["User"]["password"], loader["User"]["first"], loader["User"]["stoppage"]
 
 
 def error_log() -> None:
-    error = str(sys.exc_info())
-    time = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+    error: str = traceback.format_exc()
+    time: str = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     with open(fr".\data\crashlogfiles\{time}.txt", 'w', encoding=ENC, newline='') as log_file:
         log_file.write(error)
 
@@ -69,12 +69,37 @@ def output_file(file_path: str) -> str:
     return f"File: {file_path} has been copied."
 
 
-def config_setting(first: str, language: str, password: str) -> str:
+def config_setting(first: str, language: str, password: str, stoppage: str) -> str:
     config = configparser.ConfigParser()
     config.read(r".\data\config\config.ini")
     config["User"]["language"] = language
     config["User"]["password"] = password
     config["User"]["first"] = first
+    config["User"]["stoppage"] = stoppage
     with open(r'.\data\config\config.ini', 'w') as config_file:
         config.write(config_file)
     return "Settings are applied at the next startup."
+
+
+def time() -> str:
+    return datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+
+
+def calc_stoppage(last_time: str, current_time: str) -> int:
+    last_year, last_month, last_day, last_hour, last_minute = int(last_time[0:4]), int(
+        last_time[5:7]), int(last_time[8:10]), int(last_time[11:13]), int(last_time[14:16])
+    current_year, current_month, current_day, current_hour, current_minute = int(current_time[0:4]), int(
+        current_time[5:7]), int(current_time[8:10]), int(current_time[11:13]), int(current_time[14:16])
+    if current_year - last_year == 0:
+        if current_month - last_month == 0:
+            if current_day - last_day == 0:
+                if current_hour - last_hour == 0:
+                    return current_minute - last_minute
+                else:
+                    return 5
+            else:
+                return 5
+        else:
+            return 5
+    else:
+        return 5
