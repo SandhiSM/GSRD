@@ -7,6 +7,8 @@ from Modules import Processor
 FONT: str = "sans-serif"
 MENU_DEFINITION: list = [["&Mode", ["&Create", "&Register", "&Input", "&Find", "&Edit",
                                     "&Delete", "&Help", "Delete Data", "&Output", "&Setting", "&Terminate", "Initialize"]]]
+ICON: str = r".\data\icon\GSRD_ICON.ico"
+IMAGE: str = r".\data\images\GSRD_IMAGE.png"
 
 # レイアウトの定義
 LAYOUT_ERROR: list = [
@@ -21,12 +23,14 @@ LAYOUT_ERROR: list = [
                    font=FONT, k="-TERMINATE-", expand_x=True)]
 ]
 LAYOUT_ACTIVATE: list = [
+    [PySimpleGUI.T("Welcome to GSRD!", font=FONT)],
+    [PySimpleGUI.Image(filename=IMAGE, s=(512, 512))],
     [PySimpleGUI.In("Slide right to start...", font=FONT, k="-PROGRESS-",
                     readonly=True, expand_x=True)],
     [PySimpleGUI.ProgressBar(100, 'h', bar_color="green",
-                             k="-PROGRESSBAR-", expand_x=True)],
+                             k="-PROGRESSBAR-", s=(1250, 10))],
     [PySimpleGUI.Slider((0, 100), default_value=0, resolution=100, orientation='h',
-                        enable_events=True, k="-START-", disable_number_display=True, expand_x=True)]
+                        enable_events=True, k="-START-", disable_number_display=True, expand_x=True)],
 ]
 LAYOUT_FIRST: list = [
     [PySimpleGUI.T(
@@ -58,8 +62,8 @@ LAYOUT_CREATE: list = [
 ]
 LAYOUT_REGISTER: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Enter the word you want to register.", font=FONT),
      PySimpleGUI.In(font=FONT, tooltip="WORD", k="-WORDREGISTER-")],
     [PySimpleGUI.T("Enter its meaning.", font=FONT),
@@ -71,8 +75,8 @@ LAYOUT_REGISTER: list = [
 ]
 LAYOUT_INPUT: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Select the path where the data is located.", font=FONT)],
     [PySimpleGUI.FileBrowse(file_types=(("CSV files", "*.csv"),),
                             initial_folder=r".\data\inputfiles", font=FONT, k="-FILEPATHINPUT-"), PySimpleGUI.In(font=FONT, readonly=True, tooltip="file path", expand_x=True)],
@@ -83,8 +87,8 @@ LAYOUT_INPUT: list = [
 ]
 LAYOUT_FIND: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Select mode.", font=FONT),
      PySimpleGUI.R("WORD", group_id="SELECTMODEFIND", default=True, tooltip="Search for words by meaning.", k="-WORDFIND-", font=FONT, expand_x=True,
                    enable_events=True), PySimpleGUI.R("MEANING", group_id="SELECTMODEFIND", font=FONT, tooltip="Search for a meaning from a word.", k="-MEANINGFIND-", expand_x=True, enable_events=True),
@@ -98,8 +102,8 @@ LAYOUT_FIND: list = [
 ]
 LAYOUT_EDIT: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Select mode.", font=FONT),
      PySimpleGUI.R("WORD", group_id="SELECTMODEEDIT", default=True, tooltip="Edit the word.",
                    k="-WORDEDIT-", font=FONT, expand_x=True, enable_events=True),
@@ -115,8 +119,8 @@ LAYOUT_EDIT: list = [
 ]
 LAYOUT_DELETE: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Enter the word you want to delete."), PySimpleGUI.In(
         font=FONT, tooltip="Enter the word you want to delete.", k="-WORDDELETE-", expand_x=True)],
     [PySimpleGUI.B("Submit", tooltip="Submit", font=FONT,
@@ -137,8 +141,9 @@ LAYOUT_HELP: list = [
 LAYOUT_DELETE_DATA: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
     [PySimpleGUI.T("Which data do you want to delete?", font=FONT)],
-    [PySimpleGUI.Spin(Processor.load_data_list(), readonly=True, k="-DELETEDATA-",
-                      tooltip="Select data.", font=FONT, expand_x=True)],
+    [PySimpleGUI.Spin(list(
+    ), readonly=True, k="-DELETEDATA-",
+        tooltip="Select data.", font=FONT, expand_x=True, enable_events=True)],
     [PySimpleGUI.B("Submit", tooltip="Submit", font=FONT,
                    k="-SUBMITDELETEDATA-", expand_x=True)],
     [PySimpleGUI.In(font=FONT, tooltip="Result", readonly=True,
@@ -146,8 +151,8 @@ LAYOUT_DELETE_DATA: list = [
 ]
 LAYOUT_OUTPUT: list = [
     [PySimpleGUI.Menu(MENU_DEFINITION, font=FONT, tearoff=True)],
-    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(Processor.load_data_list(
-    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True)],
+    [PySimpleGUI.T("Select a file.", font=FONT), PySimpleGUI.Spin(list(
+    ), readonly=True, font=FONT, tooltip="DATA", k="-DATA-", expand_x=True, enable_events=True)],
     [PySimpleGUI.T("Select a file for the output.", font=FONT)],
     [PySimpleGUI.FileBrowse(file_types=(
         ("CSV files", "*.csv"),), initial_folder=r".\data\savefiles", font=FONT, k="-FILEOUTPUT-"), PySimpleGUI.In(font=FONT, tooltip="Full path", readonly=True, expand_x=True)],
@@ -183,39 +188,39 @@ LAYOUT_INITIALIZE: list = [
 
 # ウィンドウの定義
 WINDOW_ERROR: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: ERROR", layout=LAYOUT_ERROR, font=FONT, finalize=True, grab_anywhere=True, size=(1100, 300))
+    "GSRD: ERROR", layout=LAYOUT_ERROR, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, size=(1100, 300))
 WINDOW_ACTIVATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, finalize=True, keep_on_top=True, size=(400, 150))
+    "GSRD: ACTIVATE", layout=LAYOUT_ACTIVATE, font=FONT, finalize=True, keep_on_top=True, icon=ICON, size=(1500, 800))
 WINDOW_FIRST: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: FIRST", layout=LAYOUT_FIRST, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(900, 125))
+    "GSRD: FIRST", layout=LAYOUT_FIRST, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(900, 125))
 WINDOW_INTRODUCTION: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INTRODUCTION", layout=LAYOUT_INTRODUCTION, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(400, 90))
+    "GSRD: INTRODUCTION", layout=LAYOUT_INTRODUCTION, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(400, 90))
 WINDOW_PASSWORD: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: PASSWORD", layout=LAYOUT_PASSWORD, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(400, 75))
+    "GSRD: PASSWORD", layout=LAYOUT_PASSWORD, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(400, 75))
 WINDOW_CREATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: CREATE", layout=LAYOUT_CREATE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(800, 125))
+    "GSRD: CREATE", layout=LAYOUT_CREATE, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(800, 125))
 WINDOW_REGISTER: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: REGISTER", layout=LAYOUT_REGISTER, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(800, 200))
+    "GSRD: REGISTER", layout=LAYOUT_REGISTER, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(800, 200))
 WINDOW_INPUT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INPUT", layout=LAYOUT_INPUT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(500, 200))
+    "GSRD: INPUT", layout=LAYOUT_INPUT, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(500, 200))
 WINDOW_FIND: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: FIND", layout=LAYOUT_FIND, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(1000, 200))
+    "GSRD: FIND", layout=LAYOUT_FIND, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(1000, 200))
 WINDOW_EDIT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: EDIT", layout=LAYOUT_EDIT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(1000, 225))
+    "GSRD: EDIT", layout=LAYOUT_EDIT, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(1000, 225))
 WINDOW_DELETE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: DELETE", layout=LAYOUT_DELETE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(600, 170))
+    "GSRD: DELETE", layout=LAYOUT_DELETE, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(600, 170))
 WINDOW_HELP: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: HELP", layout=LAYOUT_HELP, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(700, 700))
+    "GSRD: HELP", layout=LAYOUT_HELP, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(700, 700))
 WINDOW_DELETE_DATA: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: DELETE DATA", layout=LAYOUT_DELETE_DATA, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(400, 150))
+    "GSRD: DELETE DATA", layout=LAYOUT_DELETE_DATA, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(400, 150))
 WINDOW_OUTPUT: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: OUTPUT", layout=LAYOUT_OUTPUT, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(400, 200))
+    "GSRD: OUTPUT", layout=LAYOUT_OUTPUT, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(400, 200))
 WINDOW_SETTING: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: SETTING", layout=LAYOUT_SETTING, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(800, 160))
+    "GSRD: SETTING", layout=LAYOUT_SETTING, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(800, 160))
 WINDOW_TERMINATE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: TERMINATE", layout=LAYOUT_TERMINATE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(500, 75))
+    "GSRD: TERMINATE", layout=LAYOUT_TERMINATE, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(500, 75))
 WINDOW_INITIALIZE: PySimpleGUI.Window = PySimpleGUI.Window(
-    "GSRD: INITIALIZE", layout=LAYOUT_INITIALIZE, font=FONT, finalize=True, grab_anywhere=True, resizable=True, size=(400, 75))
+    "GSRD: INITIALIZE", layout=LAYOUT_INITIALIZE, font=FONT, finalize=True, grab_anywhere=True, icon=ICON, resizable=True, size=(400, 75))
 
 
 # 画面遷移用の関数
@@ -280,6 +285,8 @@ def gui_self_registering_dictionary() -> None:
             initial: bool = False
         else:
             match events:
+                case None:
+                    running: bool = False
                 case "Create":
                     windows_change(remain_window=WINDOW_CREATE)
                 case "Register":
@@ -321,20 +328,21 @@ def gui_self_registering_dictionary() -> None:
                         result = Processor.create_data(
                             values["-FILENAMEFIRST-"])
                         PySimpleGUI.popup(result, title="Success!",
-                                          font=FONT, keep_on_top=True)
+                                          font=FONT, keep_on_top=True, icon=ICON)
+                        window["-FILENAMEFIRST-"].update('')
                         windows_change(remain_window=WINDOW_INTRODUCTION)
                     else:
                         PySimpleGUI.popup("ERROR: You must enter file name.",
-                                          title="ERROR!", keep_on_top=True, font=FONT)
+                                          title="ERROR!", keep_on_top=True, font=FONT, icon=ICON)
                 case "-SUBMITPASSWORD-":
                     if values["-PASSWORDINPUT-"] == password:
                         PySimpleGUI.popup("Authentication Success.",
-                                          title="Success!", font=FONT, keep_on_top=True)
+                                          title="Success!", font=FONT, keep_on_top=True, icon=ICON)
                         windows_change(remain_window=WINDOW_INTRODUCTION)
                     else:
                         wrong_count -= 1
                         PySimpleGUI.popup(f"It is wrong password. remain -> {wrong_count}",
-                                          title="Error!", font=FONT, keep_on_top=True)
+                                          title="Error!", font=FONT, keep_on_top=True, icon=ICON)
                         window["-PASSWORDINPUT-"].update('')
                 case "-SUBMITCREATE-":
                     if values["-FILENAMECREATE-"] == '':
@@ -343,6 +351,9 @@ def gui_self_registering_dictionary() -> None:
                         result = Processor.create_data(
                             values["-FILENAMECREATE-"])
                         window["-RESULTCREATE-"].update(result)
+                        window["-FILENAMECREATE-"].update('')
+                case "-DATA-":
+                    window["-DATA-"].update(values=Processor.load_data_list())
                 case "-SUBMITREGISTER-":
                     result = Processor.register(
                         file_name=values["-DATA-"], word=values["-WORDREGISTER-"], meaning=values["-MEANINGREGISTER-"])
@@ -357,6 +368,7 @@ def gui_self_registering_dictionary() -> None:
                         result = Processor.data_input(
                             file_name=values["-DATA-"], input_file_path=values["-FILEPATHINPUT-"])
                         window["-RESULTINPUT-"].update(result)
+                        window["-FILEPATHINPUT-"].update('')
                 case "-WORDFIND-":
                     window["-MESSAGEBRANCHINGFIND-"].update(
                         "Enter the meaning of the word you want to find.")
@@ -374,10 +386,12 @@ def gui_self_registering_dictionary() -> None:
                             result = Processor.find(
                                 file_name=values["-DATA-"], mode="word", find_key=values["-WORD|MEANINGFIND-"])
                             window["-RESULTFIND-"].update(result)
+                            window["-WORD|MEANINGFIND-"].update('')
                         elif values["-MEANINGFIND-"]:
                             result = Processor.find(
                                 file_name=values["-DATA-"], mode="meaning", find_key=values["-WORD|MEANINGFIND-"])
                             window["-RESULTFIND-"].update(result)
+                            window["-WORD|MEANINGFIND-"].update('')
                         else:
                             result = Processor.find(
                                 file_name=values["-DATA-"], mode="number")
@@ -395,28 +409,34 @@ def gui_self_registering_dictionary() -> None:
                             result = Processor.edit(
                                 file_name=values["-DATA-"], mode="meaning", original_word=values["-ORIGINALWORDEDIT-"], word_or_meaning=values["WORD|MEANINGEDIT-"])
                             window["-RESULTEDIT-"].update(result)
+                    window["-ORIGINALWORDEDIT"].update('')
+                    window["-WORD|MEANINGEDIT-"].update('')
                 case "-SUBMITDELETE-":
                     if values["-WORDDELETE-"] == '':
                         window["-RESULTDELETE-"].update(
                             "Enter a word you want to delete.")
                     else:
                         confirm = PySimpleGUI.popup_yes_no(
-                            "Do you really want to delete it?", title="confirm", font=FONT, keep_on_top=True)
+                            "Do you really want to delete it?", title="confirm", font=FONT, keep_on_top=True, icon=ICON)
                         if confirm == "Yes":
                             result = Processor.delete(
                                 file_name=values["-DATA-"], word=values["-WORDDELETE-"])
                             window["-RESULTDELETE-"].update(result)
                         else:
                             window["-RESULTDELETE-"].update("Canceled.")
+                    window["-WORDDELETE-"].update('')
                 case "-SUBMITHELP-":
                     result = Processor.help(
                         mode=values["-HELP-"], language=language)
                     window["-RESULTHELP-"].update(disabled=False)
                     window["-RESULTHELP-"].update(result)
                     window["-RESULTHELP-"].update(disabled=True)
+                case "-DELETEDATA-":
+                    window["-DELETEDATA-"].update(
+                        values=Processor.load_data_list())
                 case "-SUBMITDELETEDATA-":
                     confirm = PySimpleGUI.popup_yes_no(
-                        "Do you really want to delete it?", title="confirm", font=FONT, keep_on_top=True)
+                        "Do you really want to delete it?", title="confirm", font=FONT, keep_on_top=True, icon=ICON)
                     if confirm == "Yes":
                         result = Processor.delete_data(
                             file_name=values["-DELETEDATA-"])
@@ -434,6 +454,7 @@ def gui_self_registering_dictionary() -> None:
                         result = Processor.data_output(
                             file_path=values["-FILEOUTPUT-"])
                         window["-RESULTOUTPUT-"].update(result)
+                        window["-FILEOUTPUT-"].update('')
                 case "-SUBMITSETTING-":
                     if values["-PASSWORDSETTING-"] == '':
                         if password == "None":
@@ -456,7 +477,7 @@ def gui_self_registering_dictionary() -> None:
                                 window["-RESULTSETTING-"].update(result)
                     else:
                         password_confirm = PySimpleGUI.popup_get_text(
-                            "Retype password", title="confirm", password_char='*')
+                            "Retype password", title="confirm", password_char='*', icon=ICON)
                         if password_confirm == values["-PASSWORDSETTING-"]:
                             if values["-ENGLISHSETTING-"]:
                                 result = Processor.config_set(
@@ -474,28 +495,28 @@ def gui_self_registering_dictionary() -> None:
                     running = False
                 case "-INITIALIZE-":
                     confirm = PySimpleGUI.popup_yes_no(
-                        "Do you really want to initialize this app?", title="confirm", font=FONT, keep_on_top=True)
+                        "Do you really want to initialize this app?", title="confirm", font=FONT, keep_on_top=True, icon=ICON)
                     if confirm == "Yes":
                         if password != "None":
                             password_confirm = PySimpleGUI.popup_get_text(
-                                "Enter password", title="confirm", password_char='*')
+                                "Enter password", title="confirm", password_char='*', icon=ICON)
                             if password_confirm == password:
                                 Processor.initialize()
                                 PySimpleGUI.popup(
-                                    "Initialized.", title="Success!", font=FONT, keep_on_top=True)
+                                    "Initialized.", title="Success!", font=FONT, keep_on_top=True, icon=ICON)
                                 windows_change(remain_window=WINDOW_FIRST)
                             else:
                                 wrong_count -= 1
                                 PySimpleGUI.popup_error(
-                                    f"It's wrong password. remain->{wrong_count}", font=FONT, keep_on_top=True)
+                                    f"It's wrong password. remain->{wrong_count}", font=FONT, keep_on_top=True, icon=ICON)
                         else:
                             Processor.initialize()
                             PySimpleGUI.popup(
-                                "Initialized.", title="Success!", font=FONT, keep_on_top=True)
+                                "Initialized.", title="Success!", font=FONT, keep_on_top=True, icon=ICON)
                             windows_change(remain_window=WINDOW_FIRST)
                     else:
                         PySimpleGUI.popup(
-                            "Canceled.", title="Canceled.", font=FONT, keep_on_top=True)
+                            "Canceled.", title="Canceled.", font=FONT, keep_on_top=True, icon=ICON)
             if wrong_count == 0:
                 time: str = Processor.get_current_time()
                 stoppage = time
@@ -511,4 +532,4 @@ if __name__ == "__main__":
     except Exception:
         Processor.error()
 
-# * 今後の目標 日本語対応(日本人なのになぜ英語から作った)、GUIの見た目をスタイリッシュにする、安定性の向上、アイコンの作成等
+# * 今後の目標 日本語対応(日本人なのになぜ英語から作った)、GUIの見た目をスタイリッシュにする、安定性の向上等
